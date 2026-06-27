@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>استراحة بالما | Palma Resort</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Tajawal:wght@300;400;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --green:#1A3C2B;--green-mid:#265A3E;--green-light:rgba(26,60,43,0.07);
+  --cream:#F5EFE2;--cream-d:#EDE5D2;
+  --gold:#C49A5A;--gold-l:#D4B07A;--gold-pale:rgba(196,154,90,0.15);
+  --white:#FFFFFF;--text:#1C1C1C;--muted:#6B6B6B;
+  --ff-serif:'Cormorant Garamond','Times New Roman',serif;
+  --ff-ar:'Tajawal','Arial',sans-serif;
+  --ff-en:'Inter','Arial',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--ff-ar);background:var(--cream);color:var(--text);overflow-x:hidden}
+
+/* ─── NAV ─── */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:1.1rem 2rem;display:flex;align-items:center;justify-content:space-between;transition:background .35s,box-shadow .35s}
+nav.scrolled{background:rgba(26,60,43,.97);box-shadow:0 2px 24px rgba(0,0,0,.18)}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-wordmark{font-family:var(--ff-serif);font-size:1.45rem;font-weight:600;color:#fff;letter-spacing:.08em}
+.nav-right{display:flex;align-items:center;gap:.8rem}
+.btn-lang{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.28);color:#fff;padding:.38rem .9rem;border-radius:20px;cursor:pointer;font-family:var(--ff-ar);font-size:.82rem;transition:background .2s}
+.btn-lang:hover{background:rgba(255,255,255,.24)}
+.btn-nav-book{background:var(--gold);color:#fff;border:none;padding:.45rem 1.2rem;border-radius:20px;cursor:pointer;font-family:var(--ff-ar);font-size:.82rem;font-weight:500;text-decoration:none;display:inline-block;transition:background .2s}
+.btn-nav-book:hover{background:var(--gold-l)}
+
+/* ─── HERO ─── */
+.hero{position:relative;min-height:100vh;background:var(--green);display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:2rem}
+.hero-watermark{position:absolute;font-family:var(--ff-serif);font-size:clamp(7rem,22vw,20rem);font-weight:700;color:rgba(255,255,255,.035);pointer-events:none;user-select:none;top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;letter-spacing:.05em}
+.hero-palm-r{position:absolute;right:-2%;bottom:-4%;width:clamp(180px,30vw,380px);opacity:.1;pointer-events:none}
+.hero-palm-l{position:absolute;left:-2%;top:-4%;width:clamp(120px,20vw,260px);opacity:.07;pointer-events:none;transform:rotate(180deg) scaleY(-1)}
+.hero-body{position:relative;z-index:2;max-width:680px}
+.hero-badge{display:inline-block;border:1px solid rgba(196,154,90,.5);color:var(--gold-l);font-family:var(--ff-en);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;padding:.4rem 1.2rem;border-radius:20px;margin-bottom:1.75rem}
+.hero-title{font-family:var(--ff-serif);font-size:clamp(4rem,12vw,9rem);font-weight:600;color:#fff;letter-spacing:.08em;line-height:1;margin-bottom:.5rem}
+.hero-sub{font-family:var(--ff-serif);font-size:clamp(.9rem,2vw,1.15rem);font-weight:300;color:var(--gold-l);letter-spacing:.3em;text-transform:uppercase;margin-bottom:2rem}
+.hero-tagline{font-size:clamp(1rem,2.5vw,1.2rem);font-weight:300;color:rgba(255,255,255,.78);line-height:1.7;margin-bottom:2.5rem;max-width:520px;margin-left:auto;margin-right:auto}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:#fff;border:none;padding:.9rem 2.2rem;border-radius:3px;cursor:pointer;font-family:var(--ff-ar);font-size:.95rem;font-weight:500;text-decoration:none;display:inline-block;letter-spacing:.03em;transition:background .2s,transform .2s}
+.btn-primary:hover{background:var(--gold-l);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.45);padding:.9rem 2.2rem;border-radius:3px;cursor:pointer;font-family:var(--ff-ar);font-size:.95rem;font-weight:300;text-decoration:none;display:inline-block;transition:border-color .2s,background .2s}
+.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.09)}
+.hero-scroll-hint{position:absolute;bottom:2.2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.45rem;color:rgba(255,255,255,.38);font-family:var(--ff-en);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
+
+/* ─── ABOUT ─── */
+.about{padding:5.5rem 2rem;background:var(--cream);text-align:center}
+.sec-eyebrow{font-family:var(--ff-en);font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block}
+.sec-title{font-family:var(--ff-serif);font-size:clamp(2rem,5vw,3.2rem);font-weight:400;color:var(--green);line-height:1.2;margin-bottom:1.4rem}
+.sec-desc{font-size:1rem;font-weight:300;color:var(--muted);max-width:600px;margin:0 auto 3.5rem;line-height:1.95}
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:2rem;max-width:860px;margin:0 auto}
+.feat{text-align:center}
+.feat-icon{width:52px;height:52px;margin:0 auto .85rem;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.feat-icon svg{width:24px;height:24px;fill:var(--gold)}
+.feat-name{font-size:.95rem;font-weight:500;color:var(--green);margin-bottom:.3rem}
+.feat-text{font-size:.82rem;color:var(--muted);font-weight:300;line-height:1.6}
+
+/* ─── PACKAGES ─── */
+.packages{padding:5.5rem 2rem;background:var(--green);position:relative;overflow:hidden}
+.packages::after{content:'';position:absolute;bottom:-60px;left:50%;transform:translateX(-50%);width:700px;height:700px;border-radius:50%;background:rgba(255,255,255,.018);pointer-events:none}
+.pkg-hdr{text-align:center;margin-bottom:3.5rem}
+.pkg-hdr .sec-eyebrow{color:rgba(196,154,90,.8)}
+.pkg-hdr .sec-title{color:#fff}
+.pkgs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:1.5rem;max-width:1180px;margin:0 auto}
+.pkg-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:2rem 1.8rem;position:relative;overflow:hidden;transition:transform .3s,background .3s,border-color .3s}
+.pkg-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+html[dir="rtl"] .pkg-card::before{transform-origin:right}
+.pkg-card:hover::before,.pkg-card.featured::before{transform:scaleX(1)}
+.pkg-card:hover{transform:translateY(-4px);background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.18)}
+.pkg-card.featured{background:rgba(196,154,90,.1);border-color:rgba(196,154,90,.35)}
+.pkg-label{display:inline-block;background:var(--gold);color:#fff;font-family:var(--ff-en);font-size:.67rem;letter-spacing:.15em;text-transform:uppercase;padding:.22rem .7rem;border-radius:2px;margin-bottom:.9rem}
+.pkg-name-ar{font-size:1.1rem;font-weight:500;color:#fff;line-height:1.45;margin-bottom:.3rem}
+.pkg-name-en{font-family:var(--ff-en);font-size:.75rem;color:rgba(255,255,255,.45);font-weight:300;margin-bottom:.75rem}
+.pkg-days{display:inline-block;background:rgba(255,255,255,.08);color:var(--gold-l);font-size:.78rem;padding:.2rem .65rem;border-radius:2px;margin-bottom:1.1rem}
+.pkg-detail{font-size:.875rem;color:rgba(255,255,255,.58);line-height:1.75;font-weight:300;min-height:3rem;margin-bottom:1.5rem}
+.pkg-footer{border-top:1px solid rgba(255,255,255,.09);padding-top:1.2rem;display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.pkg-price{display:flex;align-items:baseline;gap:.3rem}
+.price-cur{font-family:var(--ff-en);font-size:.78rem;color:var(--gold-l);font-weight:300}
+.price-num{font-family:var(--ff-serif);font-size:2.4rem;font-weight:600;color:var(--gold);line-height:1}
+.btn-book{background:var(--gold);color:#fff;border:none;padding:.55rem 1.2rem;border-radius:3px;cursor:pointer;font-family:var(--ff-ar);font-size:.85rem;text-decoration:none;display:inline-block;transition:background .2s,transform .2s;white-space:nowrap}
+.btn-book:hover{background:var(--gold-l);transform:translateY(-1px)}
+
+/* ─── CONTACT ─── */
+.contact{padding:5.5rem 2rem;background:var(--cream);text-align:center}
+.contact-cards{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center;max-width:820px;margin:2.8rem auto 0}
+.c-card{background:#fff;border:1px solid rgba(26,60,43,.1);border-radius:4px;padding:1.75rem 2rem;display:flex;flex-direction:column;align-items:center;gap:.65rem;flex:1;min-width:190px;max-width:240px;text-decoration:none;color:inherit;transition:transform .25s,box-shadow .25s}
+.c-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(26,60,43,.1)}
+.c-icon{width:48px;height:48px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.c-icon svg{width:22px;height:22px}
+.c-lbl{font-family:var(--ff-en);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.c-val{font-size:1rem;font-weight:500;color:var(--green);direction:ltr}
+
+/* ─── FOOTER ─── */
+footer{background:var(--green);padding:3.5rem 2rem 2rem;text-align:center}
+.footer-logo-wrap{display:inline-block;cursor:pointer;margin-bottom:1.2rem;user-select:none}
+.footer-tagline{font-size:.9rem;font-weight:300;color:rgba(255,255,255,.45);margin-bottom:.75rem}
+.footer-hr{border:none;border-top:1px solid rgba(255,255,255,.1);max-width:360px;margin:1.8rem auto}
+.footer-copy{font-family:var(--ff-en);font-size:.72rem;color:rgba(255,255,255,.28);letter-spacing:.05em}
+.footer-admin-btn{display:inline-flex;align-items:center;justify-content:center;margin-top:1.4rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:50%;width:34px;height:34px;cursor:pointer;color:rgba(255,255,255,.3);transition:background .2s,color .2s,border-color .2s}
+.footer-admin-btn:hover{background:rgba(255,255,255,.14);color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.28)}
+
+/* ─── WHATSAPP FLOAT ─── */
+.wa-float{position:fixed;bottom:2rem;left:2rem;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.42);z-index:800;text-decoration:none;transition:transform .2s}
+html[dir="ltr"] .wa-float{left:auto;right:2rem}
+.wa-float:hover{transform:scale(1.1)}
+.wa-float svg{width:30px;height:30px}
+
+/* ─── ADMIN OVERLAY ─── */
+#adm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1000;display:none;align-items:flex-start;justify-content:flex-end}
+#adm-overlay.open{display:flex}
+#adm-panel{width:min(100vw,470px);height:100vh;background:#1C1C1C;color:#E0E0E0;display:flex;flex-direction:column;font-family:var(--ff-ar);box-shadow:-6px 0 32px rgba(0,0,0,.35);overflow:hidden}
+html[dir="ltr"] #adm-overlay{justify-content:flex-start}
+html[dir="ltr"] #adm-panel{box-shadow:6px 0 32px rgba(0,0,0,.35)}
+#adm-hdr{background:var(--green);padding:1.2rem 1.4rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+#adm-hdr h2{font-size:1rem;font-weight:500;color:#fff}
+#adm-hdr-right{display:flex;align-items:center;gap:.75rem}
+#adm-save-all{background:var(--gold);color:#fff;border:none;padding:.4rem 1rem;border-radius:3px;cursor:pointer;font-family:var(--ff-ar);font-size:.82rem;transition:background .2s}
+#adm-save-all:hover{background:var(--gold-l)}
+#adm-close-btn{background:none;border:none;color:rgba(255,255,255,.65);cursor:pointer;font-size:1.6rem;line-height:1;padding:.15rem}
+#adm-close-btn:hover{color:#fff}
+.adm-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.1);flex-shrink:0;overflow-x:auto}
+.adm-tab{padding:.75rem 1.1rem;background:none;border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,.45);cursor:pointer;font-family:var(--ff-ar);font-size:.85rem;white-space:nowrap;transition:color .2s,border-color .2s;margin-bottom:-1px}
+.adm-tab.on{color:var(--gold);border-bottom-color:var(--gold)}
+.adm-body{flex:1;overflow-y:auto;padding:1.4rem}
+.adm-pane{display:none}
+.adm-pane.on{display:block}
+.adm-sec-title{font-size:.85rem;font-weight:500;color:var(--gold-l);margin-bottom:.85rem;padding-bottom:.4rem;border-bottom:1px solid rgba(196,154,90,.2)}
+.adm-field{margin-bottom:1rem}
+.adm-lbl{display:block;font-size:.75rem;color:rgba(255,255,255,.45);margin-bottom:.35rem;letter-spacing:.04em}
+.adm-input,.adm-textarea{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:4px;color:#fff;padding:.55rem .8rem;font-family:var(--ff-ar);font-size:.88rem;transition:border-color .2s;resize:vertical}
+.adm-input:focus,.adm-textarea:focus{outline:none;border-color:var(--gold)}
+.adm-input::placeholder,.adm-textarea::placeholder{color:rgba(255,255,255,.22)}
+.adm-checkbox-row{display:flex;align-items:center;gap:.5rem;margin-bottom:1rem}
+.adm-checkbox-row input{accent-color:var(--gold);width:16px;height:16px}
+.adm-checkbox-row label{font-size:.85rem;color:rgba(255,255,255,.65);cursor:pointer}
+.pkg-blk{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:4px;margin-bottom:.85rem;overflow:hidden}
+.pkg-blk-hdr{display:flex;align-items:center;justify-content:space-between;padding:.7rem 1rem;cursor:pointer;transition:background .2s}
+.pkg-blk-hdr:hover{background:rgba(255,255,255,.05)}
+.pkg-blk-hdr span{font-size:.88rem;color:rgba(255,255,255,.75);font-weight:500}
+.pkg-blk-hdr .chevron{font-size:.9rem;color:rgba(255,255,255,.35);transition:transform .2s}
+.pkg-blk-hdr.open .chevron{transform:rotate(180deg)}
+.pkg-blk-body{display:none;padding:0 1rem 1rem;border-top:1px solid rgba(255,255,255,.06)}
+.pkg-blk-body.open{display:block;padding-top:.85rem}
+#adm-login-screen{flex:1;overflow-y:auto;display:flex;align-items:center;justify-content:center;padding:2rem}
+.login-box{text-align:center;max-width:270px;width:100%}
+.login-box h3{font-size:1.1rem;font-weight:500;color:#fff;margin-bottom:.5rem}
+.login-box p{font-size:.82rem;color:rgba(255,255,255,.45);margin-bottom:1.75rem;line-height:1.6}
+.adm-err{color:#FF7070;font-size:.78rem;margin-top:.4rem;display:none}
+#adm-main{display:none;flex-direction:column;flex:1;overflow:hidden}
+
+.pkg-promo-banner{display:inline-block;background:rgba(196,154,90,.15);border:1px solid rgba(196,154,90,.35);color:var(--gold-l);font-size:.82rem;padding:.5rem 1.4rem;border-radius:20px;margin-top:.75rem;letter-spacing:.03em;line-height:1.5}
+
+/* ─── FADE-IN SCROLL ─── */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.in{opacity:1;transform:translateY(0)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:640px){
+  nav{padding:1rem}
+  .nav-wordmark{font-size:1.15rem}
+  .pkgs-grid{grid-template-columns:1fr}
+  .pkg-footer{flex-direction:column;align-items:flex-start}
+  .btn-book{width:100%;text-align:center}
+  .contact-cards{flex-direction:column;align-items:center}
+  .c-card{max-width:100%;width:100%}
+  #adm-panel{width:100vw}
+  .adm-tabs{gap:0}
+  .adm-tab{padding:.65rem .8rem;font-size:.8rem}
+}
+</style>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <a href="#" class="nav-brand">
+    <svg width="30" height="38" viewBox="0 0 60 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M28 75 C27 56 27 44 29 34 C31 44 33 56 32 75Z" fill="white" opacity="0.9"/>
+      <path d="M29 38 C21 35 8 40 1 37 C13 30 25 32 29 38Z" fill="white" opacity="0.85"/>
+      <path d="M31 38 C39 35 52 40 59 37 C47 30 35 32 31 38Z" fill="white" opacity="0.85"/>
+      <path d="M29 34 C21 25 14 16 8 7 C17 18 25 28 29 34Z" fill="white" opacity="0.9"/>
+      <path d="M31 34 C39 25 46 16 52 7 C43 18 35 28 31 34Z" fill="white" opacity="0.9"/>
+      <path d="M29 30 C25 18 21 7 19 1 C24 12 28 24 29 30Z" fill="white"/>
+      <path d="M31 30 C35 18 39 7 41 1 C36 12 32 24 31 30Z" fill="white"/>
+      <path d="M30 28 C30 16 30 7 30 0 C31 10 31 19 30 28Z" fill="white"/>
+    </svg>
+    <span class="nav-wordmark">PALMA</span>
+  </a>
+  <div class="nav-right">
+    <button class="btn-lang" onclick="toggleLang()" id="lang-btn">EN</button>
+    <a href="#packages" class="btn-nav-book" data-ar="احجز الآن" data-en="Book Now">احجز الآن</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <div class="hero-watermark">PALMA</div>
+  <svg class="hero-palm-r" viewBox="0 0 200 280" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M95 280 C93 220 91 170 95 130 C99 170 102 220 105 280Z"/>
+    <path d="M96 145 C78 138 50 148 30 143 C55 130 80 134 96 145Z"/>
+    <path d="M104 145 C122 138 150 148 170 143 C145 130 120 134 104 145Z"/>
+    <path d="M96 136 C82 118 66 98 48 75 C64 99 80 120 96 136Z"/>
+    <path d="M104 136 C118 118 134 98 152 75 C136 99 120 120 104 136Z"/>
+    <path d="M96 125 C87 102 78 76 72 52 C80 76 89 103 96 125Z"/>
+    <path d="M104 125 C113 102 122 76 128 52 C120 76 111 103 104 125Z"/>
+    <path d="M100 118 C99 88 99 60 99 35 C101 60 101 88 100 118Z"/>
+  </svg>
+  <svg class="hero-palm-l" viewBox="0 0 200 280" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M95 280 C93 220 91 170 95 130 C99 170 102 220 105 280Z"/>
+    <path d="M96 145 C78 138 50 148 30 143 C55 130 80 134 96 145Z"/>
+    <path d="M104 145 C122 138 150 148 170 143 C145 130 120 134 104 145Z"/>
+    <path d="M96 136 C82 118 66 98 48 75 C64 99 80 120 96 136Z"/>
+    <path d="M104 136 C118 118 134 98 152 75 C136 99 120 120 104 136Z"/>
+    <path d="M96 125 C87 102 78 76 72 52 C80 76 89 103 96 125Z"/>
+    <path d="M104 125 C113 102 122 76 128 52 C120 76 111 103 104 125Z"/>
+    <path d="M100 118 C99 88 99 60 99 35 C101 60 101 88 100 118Z"/>
+  </svg>
+  <div class="hero-body">
+    <div class="hero-badge" data-ar="استراحة ريفية فاخرة" data-en="Luxury Farm Stay">استراحة ريفية فاخرة</div>
+    <div class="hero-title">PALMA</div>
+    <div class="hero-sub" data-ar="استراحة بالما — Farm Stay" data-en="Palma Resort — Farm Stay">استراحة بالما — Farm Stay</div>
+    <p class="hero-tagline" id="hero-tagline" data-ar="مكانٌ حيث تلتقي الطبيعة بالراحة الحقيقية — أجواء هادئة وخضراء وسط الطبيعة" data-en="Where nature meets true tranquility — serene, green, and away from it all">مكانٌ حيث تلتقي الطبيعة بالراحة الحقيقية — أجواء هادئة وخضراء وسط الطبيعة</p>
+    <div class="hero-btns">
+      <a href="#packages" class="btn-primary" data-ar="استعرض الباقات" data-en="View Packages">استعرض الباقات</a>
+      <a href="#contact" class="btn-outline" data-ar="تواصل معنا" data-en="Contact Us">تواصل معنا</a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <span data-ar="استكشف" data-en="Explore">استكشف</span>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section class="about" id="about">
+  <span class="sec-eyebrow fade-up" data-ar="عن الاستراحة" data-en="About The Resort">عن الاستراحة</span>
+  <h2 class="sec-title fade-up" id="about-title" data-ar="تجربة ريفية لا تُنسى" data-en="An Unforgettable Rural Experience">تجربة ريفية لا تُنسى</h2>
+  <p class="sec-desc fade-up" id="about-desc" data-ar="استراحة بالما هي وجهتك المثالية للراحة والاسترخاء بعيداً عن ضجيج المدينة. استمتع بأجواء الريف الهادئة، الهواء النقي، والمساحات الخضراء الواسعة التي تمنحك تجربة طبيعية أصيلة." data-en="Palma Resort is your perfect destination for rest and relaxation away from city noise. Enjoy peaceful rural vibes, fresh air, and wide green spaces that give you an authentic natural experience.">استراحة بالما هي وجهتك المثالية للراحة والاسترخاء بعيداً عن ضجيج المدينة. استمتع بأجواء الريف الهادئة، الهواء النقي، والمساحات الخضراء الواسعة التي تمنحك تجربة طبيعية أصيلة.</p>
+  <div class="feats">
+    <div class="feat fade-up">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="feat-name" data-ar="خصوصية تامة" data-en="Full Privacy">خصوصية تامة</div>
+      <div class="feat-text" data-ar="استراحة خاصة مستقلة لعائلتك" data-en="Private independent space for your family">استراحة خاصة مستقلة لعائلتك</div>
+    </div>
+    <div class="feat fade-up">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="feat-name" data-ar="مناسبة للجميع" data-en="For Everyone">مناسبة للجميع</div>
+      <div class="feat-text" data-ar="تحتضن العائلات، الأصدقاء والمناسبات" data-en="Hosts families, friends and celebrations">تحتضن العائلات، الأصدقاء والمناسبات</div>
+    </div>
+    <div class="feat fade-up">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg></div>
+      <div class="feat-name" data-ar="مرونة المواعيد" data-en="Flexible Timing">مرونة المواعيد</div>
+      <div class="feat-text" data-ar="باقات متنوعة بدون مبيت ومع مبيت" data-en="Various packages with and without overnight">باقات متنوعة بدون مبيت ومع مبيت</div>
+    </div>
+    <div class="feat fade-up">
+      <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M3 6l9-3 9 3v7c0 5-4.5 8.5-9 9-4.5-.5-9-4-9-9V6z"/></svg></div>
+      <div class="feat-name" data-ar="بيئة آمنة" data-en="Safe Environment">بيئة آمنة</div>
+      <div class="feat-text" data-ar="محاطة بالطبيعة في بيئة هادئة وآمنة" data-en="Surrounded by nature in a calm, safe setting">محاطة بالطبيعة في بيئة هادئة وآمنة</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PACKAGES ── -->
+<section class="packages" id="packages">
+  <div class="pkg-hdr">
+    <span class="sec-eyebrow fade-up" data-ar="الأسعار والباقات" data-en="Prices & Packages">الأسعار والباقات</span>
+    <h2 class="sec-title fade-up" data-ar="اختر تجربتك" data-en="Choose Your Experience">اختر تجربتك</h2>
+    <div class="pkg-promo-banner fade-up" data-ar="⭐ ليلتان = خصم 400 درهم &nbsp;|&nbsp; ⚠️ الأسعار ثابتة وغير قابلة للتفاوض" data-en="⭐ 2 Nights = AED 400 Off &nbsp;|&nbsp; ⚠️ Rates are fixed and non-negotiable">⭐ ليلتان = خصم 400 درهم &nbsp;|&nbsp; ⚠️ الأسعار ثابتة وغير قابلة للتفاوض</div>
+  </div>
+  <div class="pkgs-grid" id="pkgs-grid">
+    <!-- rendered by JS -->
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section class="contact" id="contact">
+  <span class="sec-eyebrow fade-up" data-ar="تواصل وموقعنا" data-en="Contact & Location">تواصل وموقعنا</span>
+  <h2 class="sec-title fade-up" data-ar="نسعد بتواصلكم" data-en="We'd Love to Hear From You">نسعد بتواصلكم</h2>
+  <p class="sec-desc fade-up" data-ar="للحجز والاستفسار تواصل معنا مباشرة عبر الهاتف أو واتساب. سنرد عليكم في أسرع وقت." data-en="For bookings and inquiries, reach us directly by phone or WhatsApp. We'll respond as quickly as possible.">للحجز والاستفسار تواصل معنا مباشرة عبر الهاتف أو واتساب. سنرد عليكم في أسرع وقت.</p>
+  <div class="contact-cards fade-up">
+    <a class="c-card" id="phone-card" href="tel:+971529295661" target="_blank">
+      <div class="c-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <span class="c-lbl" data-ar="هاتف" data-en="Phone">هاتف</span>
+      <span class="c-val" id="phone-val">0529295661</span>
+    </a>
+    <a class="c-card" id="wa-card" href="https://wa.me/971529295661?text=أهلاً، أود الاستفسار عن الحجز في استراحة بالما" target="_blank">
+      <div class="c-icon" style="background:#25D366">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M20.52 3.48A11.9 11.9 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.22-1.63A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52zm-8.52 18.4a9.87 9.87 0 0 1-5.03-1.37l-.36-.21-3.7.97.98-3.61-.23-.37A9.9 9.9 0 1 1 12 21.88zM17.4 14.6c-.3-.15-1.77-.87-2.04-.97s-.47-.15-.67.15-.77.97-.94 1.17-.35.22-.64.07a8.12 8.12 0 0 1-4.07-3.56c-.3-.52.3-.48.87-1.61.1-.2.05-.37-.02-.52s-.67-1.61-.91-2.2c-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37s-1.04 1.02-1.04 2.48 1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.27.48 1.7.62.72.23 1.37.2 1.88.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.19-.57-.34z"/></svg>
+      </div>
+      <span class="c-lbl">WhatsApp</span>
+      <span class="c-val" id="wa-val">0529295661</span>
+    </a>
+    <a class="c-card" id="map-card" href="https://www.google.com/maps/place/%D8%A7%D8%B3%D8%AA%D8%B1%D8%A7%D8%AD%D8%A9+%D8%A8%D8%A7%D9%84%D9%85%D8%A7+Palma+Resort%E2%80%AD/@24.1696784,55.5106109,17z" target="_blank">
+      <div class="c-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <span class="c-lbl" data-ar="الموقع" data-en="Location">الموقع</span>
+      <span class="c-val" data-ar="عرض الخريطة" data-en="View on Map" style="font-size:.88rem;color:var(--gold)">عرض الخريطة</span>
+    </a>
+    <a class="c-card" id="ig-card" href="#" target="_blank" style="display:none">
+      <div class="c-icon" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)">
+        <svg viewBox="0 0 24 24" fill="white"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="white" stroke-width="1.8"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="none" stroke="white" stroke-width="1.8"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <span class="c-lbl">Instagram</span>
+      <span class="c-val" id="ig-val" style="font-size:.82rem">@palmaresort</span>
+    </a>
+    <a class="c-card" id="tt-card" href="#" target="_blank" style="display:none">
+      <div class="c-icon" style="background:#000">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.65a8.2 8.2 0 0 0 4.79 1.52V6.7a4.84 4.84 0 0 1-1.02-.01z"/></svg>
+      </div>
+      <span class="c-lbl">TikTok</span>
+      <span class="c-val" id="tt-val" style="font-size:.82rem">@palmaresort</span>
+    </a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo-wrap" id="footer-logo" onclick="footerClick()">
+    <svg width="44" height="54" viewBox="0 0 60 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M28 75 C27 56 27 44 29 34 C31 44 33 56 32 75Z" fill="white" opacity="0.8"/>
+      <path d="M29 38 C21 35 8 40 1 37 C13 30 25 32 29 38Z" fill="white" opacity="0.75"/>
+      <path d="M31 38 C39 35 52 40 59 37 C47 30 35 32 31 38Z" fill="white" opacity="0.75"/>
+      <path d="M29 34 C21 25 14 16 8 7 C17 18 25 28 29 34Z" fill="white" opacity="0.8"/>
+      <path d="M31 34 C39 25 46 16 52 7 C43 18 35 28 31 34Z" fill="white" opacity="0.8"/>
+      <path d="M30 28 C30 16 30 7 30 0 C31 10 31 19 30 28Z" fill="white"/>
+    </svg>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:rgba(255,255,255,.8);letter-spacing:.1em;margin-top:.3rem">PALMA</div>
+  </div>
+  <div class="footer-tagline" data-ar="استراحة بالما — حيث تبدأ الراحة الحقيقية" data-en="Palma Resort — Where true rest begins">استراحة بالما — حيث تبدأ الراحة الحقيقية</div>
+  <hr class="footer-hr">
+  <div class="footer-copy">© 2025 Palma Resort — Farm Stay. All rights reserved.</div>
+  <button onclick="openAdmin()" class="footer-admin-btn" title="Admin">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="16" height="16"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+  </button>
+</footer>
+
+<!-- ── WHATSAPP FLOAT ── -->
+<a class="wa-float" id="wa-float" href="https://wa.me/971529295661?text=أهلاً، أود الاستفسار عن الحجز" target="_blank" title="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="white"><path d="M20.52 3.48A11.9 11.9 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.22-1.63A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52zm-8.52 18.4a9.87 9.87 0 0 1-5.03-1.37l-.36-.21-3.7.97.98-3.61-.23-.37A9.9 9.9 0 1 1 12 21.88zM17.4 14.6c-.3-.15-1.77-.87-2.04-.97s-.47-.15-.67.15-.77.97-.94 1.17-.35.22-.64.07a8.12 8.12 0 0 1-4.07-3.56c-.3-.52.3-.48.87-1.61.1-.2.05-.37-.02-.52s-.67-1.61-.91-2.2c-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37s-1.04 1.02-1.04 2.48 1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.27.48 1.7.62.72.23 1.37.2 1.88.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.19-.57-.34z"/></svg>
+</a>
+
+<!-- ── ADMIN OVERLAY ── -->
+<div id="adm-overlay">
+  <div id="adm-panel">
+    <div id="adm-hdr">
+      <h2 data-ar="لوحة تحكم بالما" data-en="Palma Admin Panel">لوحة تحكم بالما</h2>
+      <div id="adm-hdr-right">
+        <button id="adm-save-all" onclick="saveAll()" data-ar="حفظ الكل" data-en="Save All">حفظ الكل</button>
+        <button id="adm-close-btn" onclick="closeAdmin()">×</button>
+      </div>
+    </div>
+
+    <!-- LOGIN SCREEN -->
+    <div id="adm-login-screen">
+      <div class="login-box">
+        <h3 data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</h3>
+        <p data-ar="أدخل كلمة المرور للوصول إلى لوحة التحكم" data-en="Enter password to access the admin panel">أدخل كلمة المرور للوصول إلى لوحة التحكم</p>
+        <input type="password" class="adm-input" id="pw-input" placeholder="كلمة المرور" onkeydown="if(event.key==='Enter')adminLogin()">
+        <p class="adm-err" id="pw-err" data-ar="كلمة المرور غير صحيحة" data-en="Incorrect password">كلمة المرور غير صحيحة</p>
+        <button class="btn-primary" style="width:100%;margin-top:1rem;border-radius:4px" onclick="adminLogin()" data-ar="دخول" data-en="Login">دخول</button>
+
+      </div>
+    </div>
+
+    <!-- MAIN ADMIN -->
+    <div id="adm-main">
+      <div class="adm-tabs">
+        <button class="adm-tab on" onclick="showTab('pkgs',this)" data-ar="الباقات" data-en="Packages">الباقات</button>
+        <button class="adm-tab" onclick="showTab('info',this)" data-ar="معلومات" data-en="Info">معلومات</button>
+        <button class="adm-tab" onclick="showTab('contact',this)" data-ar="تواصل" data-en="Contact">تواصل</button>
+        <button class="adm-tab" onclick="showTab('settings',this)" data-ar="الإعدادات" data-en="Settings">الإعدادات</button>
+      </div>
+      <div class="adm-body">
+
+        <!-- PACKAGES TAB -->
+        <div class="adm-pane on" id="tab-pkgs">
+          <div id="pkg-admin-blocks"></div>
+          <button class="btn-primary" style="width:100%;border-radius:4px" onclick="savePackages(this)" data-ar="حفظ الباقات" data-en="Save Packages">حفظ الباقات</button>
+        </div>
+
+        <!-- INFO TAB -->
+        <div class="adm-pane" id="tab-info">
+          <p class="adm-sec-title" data-ar="معلومات الصفحة الرئيسية" data-en="Homepage Info">معلومات الصفحة الرئيسية</p>
+          <div class="adm-field">
+            <label class="adm-lbl" data-ar="وصف الصفحة الرئيسية (عربي)" data-en="Hero tagline (Arabic)">وصف الصفحة الرئيسية (عربي)</label>
+            <textarea class="adm-textarea adm-input" id="inf-hero-ar" rows="2"></textarea>
+          </div>
+          <div class="adm-field">
+            <label class="adm-lbl" data-ar="وصف الصفحة الرئيسية (إنجليزي)" data-en="Hero tagline (English)">وصف الصفحة الرئيسية (إنجليزي)</label>
+            <textarea class="adm-textarea adm-input" id="inf-hero-en" rows="2"></textarea>
+          </div>
+          <p class="adm-sec-title" style="margin-top:1.5rem" data-ar="قسم عن الاستراحة" data-en="About Section">قسم عن الاستراحة</p>
+          <div class="adm-field">
+            <label class="adm-lbl" data-ar="عنوان القسم (عربي)" data-en="Section title (Arabic)">عنوان القسم (عربي)</label>
+            <input class="adm-input" id="inf-about-title-ar" type="text">
+          </div>
+          <div class="adm-field">
+            <label class="adm-lbl" data-ar="عنوان القسم (إنجليزي)" data-en="Section title (English)">عنوان القسم (إنجليزي)</label>
+            <input class="adm-input" id="inf-about-title-en" type="text">
+          </div>
+          <div class="adm-field">
+            <label class="adm-lbl" data-ar="وصف القسم (عربي)" data-en="Section description (Arabic)">وصف القسم (عربي)</label>
+            <textarea class="adm-textarea adm-input" id="inf-about-desc-ar" rows="3"></textarea>
+          </div>
+          <div class="adm-field">
+            <label class="adm-lbl" data-ar="وصف القسم (إنجليزي)" data-en="Section description (English)">وصف القسم (إنجليزي)</label>
+            <textarea class="adm-textarea adm-input" id="inf-about-desc-en" rows="3"></textarea>
+          </div>
+          <button class="btn-primary" style="width:100%;border-radius:4px" onclick="saveInfo(this)" data-ar="حفظ المعلومات" data-en="Save Info">حفظ المعلومات</button>
+        </div>
+
+        <!-- CONTACT TAB -->
+        <div class="adm-pane" id="tab-contact">
+          <p class="adm-sec-title" data-ar="معلومات التواصل" data-en="Contact Details">معلومات التواصل</p>
+          <div class="adm-field">
+            <label class="adm-lbl" data-ar="رقم الهاتف" data-en="Phone Number">رقم الهاتف</label>
+            <input class="adm-input" id="c-phone" type="tel">
+          </div>
+          <div class="adm-field">
+            <label class="adm-lbl" data-ar="رقم واتساب (مع رمز الدولة، بدون +)" data-en="WhatsApp number (with country code, no +)">رقم واتساب (مع رمز الدولة بدون +)</label>
+            <input class="adm-input" id="c-wa" type="tel" placeholder="971529295661">
+          </div>
+          <p class="adm-sec-title" style="margin-top:1.5rem" data-ar="السوشل ميديا" data-en="Social Media">السوشل ميديا</p>
+          <div class="adm-field">
+            <label class="adm-lbl" data-ar="رابط انستغرام (اتركه فارغاً لإخفائه)" data-en="Instagram URL (leave blank to hide)">رابط انستغرام (اتركه فارغاً لإخفائه)</label>
+            <input class="adm-input" id="c-ig" type="url" placeholder="https://instagram.com/...">
+          </div>
+          <div class="adm-field">
+            <label class="adm-lbl" data-ar="اسم مستخدم انستغرام" data-en="Instagram username">اسم مستخدم انستغرام</label>
+            <input class="adm-input" id="c-ig-user" type="text" placeholder="@palmaresort">
+          </div>
+          <div class="adm-field">
+            <label class="adm-lbl" data-ar="رابط تيك توك (اتركه فارغاً لإخفائه)" data-en="TikTok URL (leave blank to hide)">رابط تيك توك (اتركه فارغاً لإخفائه)</label>
+            <input class="adm-input" id="c-tt" type="url" placeholder="https://tiktok.com/@...">
+          </div>
+          <div class="adm-field">
+            <label class="adm-lbl" data-ar="اسم مستخدم تيك توك" data-en="TikTok username">اسم مستخدم تيك توك</label>
+            <input class="adm-input" id="c-tt-user" type="text" placeholder="@palmaresort">
+          </div>
+          <button class="btn-primary" style="width:100%;border-radius:4px" onclick="saveContact(this)" data-ar="حفظ التواصل" data-en="Save Contact">حفظ التواصل</button>
+        </div>
+
+        <!-- SETTINGS TAB -->
+        <div class="adm-pane" id="tab-settings">
+          <p class="adm-sec-title" data-ar="تغيير كلمة المرور" data-en="Change Password">تغيير كلمة المرور</p>
+          <div class="adm-field">
+            <label class="adm-lbl" data-ar="كلمة المرور الحالية" data-en="Current Password">كلمة المرور الحالية</label>
+            <input class="adm-input" id="s-pw-old" type="password">
+          </div>
+          <div class="adm-field">
+            <label class="adm-lbl" data-ar="كلمة المرور الجديدة" data-en="New Password">كلمة المرور الجديدة</label>
+            <input class="adm-input" id="s-pw-new" type="password">
+          </div>
+          <div class="adm-field">
+            <label class="adm-lbl" data-ar="تأكيد كلمة المرور الجديدة" data-en="Confirm New Password">تأكيد كلمة المرور الجديدة</label>
+            <input class="adm-input" id="s-pw-confirm" type="password">
+          </div>
+          <p class="adm-err" id="pw-change-err"></p>
+          <button class="btn-primary" style="width:100%;border-radius:4px;margin-top:.5rem" onclick="changePassword(this)" data-ar="تغيير كلمة المرور" data-en="Change Password">تغيير كلمة المرور</button>
+          <hr style="border:none;border-top:1px solid rgba(255,255,255,.08);margin:2rem 0">
+          <p class="adm-sec-title" data-ar="إعادة ضبط البيانات" data-en="Reset Data">إعادة ضبط البيانات</p>
+          <p style="font-size:.8rem;color:rgba(255,255,255,.4);margin-bottom:1rem;line-height:1.6" data-ar="سيؤدي هذا إلى إعادة كل المحتوى إلى القيم الافتراضية. لا يمكن التراجع عن هذه العملية." data-en="This will reset all content to default values. This action cannot be undone.">سيؤدي هذا إلى إعادة كل المحتوى إلى القيم الافتراضية. لا يمكن التراجع عن هذه العملية.</p>
+          <button style="background:rgba(220,50,50,.15);border:1px solid rgba(220,50,50,.35);color:#FF8080;padding:.7rem 1rem;border-radius:4px;cursor:pointer;font-family:var(--ff-ar);font-size:.88rem;width:100%;transition:background .2s" onclick="resetData()" data-ar="إعادة ضبط البيانات" data-en="Reset All Data">إعادة ضبط البيانات</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DEFAULT = {
+  packages:[
+    {id:1,nameAr:"أيام الأسبوع — بدون مبيت",nameEn:"Weekday — Day Use",daysAr:"الأحد — الخميس",daysEn:"Sunday – Thursday",detailAr:"الدخول: 3:00 ظهراً | الخروج: 12:00 منتصف الليل | حتى 25 شخص + 500 تأمين مسترد | عربون 1,000 درهم لتأكيد الحجز",detailEn:"Check-in: 3:00 PM | Check-out: 12:00 AM | Up to 25 guests + AED 500 refundable deposit | AED 1,000 deposit to confirm",price:1700,featured:false},
+    {id:2,nameAr:"أيام الأسبوع — مع مبيت",nameEn:"Weekday — Overnight",daysAr:"الأحد — الخميس",daysEn:"Sunday – Thursday",detailAr:"الدخول: 3:00 ظهراً | الخروج: 11:00 صباحاً | حتى 25 شخص + 500 تأمين مسترد | عربون 1,000 درهم لتأكيد الحجز",detailEn:"Check-in: 3:00 PM | Check-out: 11:00 AM | Up to 25 guests + AED 500 refundable deposit | AED 1,000 deposit to confirm",price:2000,featured:false},
+    {id:3,nameAr:"نهاية الأسبوع — بدون مبيت",nameEn:"Weekend — Day Use",daysAr:"الجمعة والسبت",daysEn:"Friday & Saturday",detailAr:"الدخول: 3:00 ظهراً | الخروج: 12:00 منتصف الليل | حتى 25 شخص + 500 تأمين مسترد | عربون 1,000 درهم لتأكيد الحجز",detailEn:"Check-in: 3:00 PM | Check-out: 12:00 AM | Up to 25 guests + AED 500 refundable deposit | AED 1,000 deposit to confirm",price:2200,featured:false},
+    {id:4,nameAr:"نهاية الأسبوع — مع مبيت",nameEn:"Weekend — Overnight",daysAr:"الجمعة والسبت",daysEn:"Friday & Saturday",detailAr:"الدخول: 3:00 ظهراً | الخروج: 11:00 صباحاً | حتى 25 شخص + 500 تأمين مسترد | عربون 1,000 درهم لتأكيد الحجز",detailEn:"Check-in: 3:00 PM | Check-out: 11:00 AM | Up to 25 guests + AED 500 refundable deposit | AED 1,000 deposit to confirm",price:2500,featured:true},
+    {id:5,nameAr:"مجموعات كبيرة وإجازات رسمية",nameEn:"Large Groups & Public Holidays",daysAr:"أكثر من 25 شخص / أعراس / إجازات رسمية",daysEn:"25+ guests / Weddings / Public Holidays",detailAr:"تأمين مسترد: 1,000 درهم | عربون 1,000 درهم لتأكيد الحجز | الدخول: 3:00 ظهراً | الخروج: 12:00 ليلاً أو 11:00 صباحاً",detailEn:"Refundable deposit: AED 1,000 | AED 1,000 deposit to confirm | Check-in: 3:00 PM | Check-out: 12:00 AM or 11:00 AM",price:3000,featured:false}
+  ],
+  info:{heroAr:"مكانٌ حيث تلتقي الطبيعة بالراحة الحقيقية — أجواء هادئة وخضراء وسط الطبيعة",heroEn:"Where nature meets true tranquility — serene, green, and away from it all",aboutTitleAr:"تجربة ريفية لا تُنسى",aboutTitleEn:"An Unforgettable Rural Experience",aboutDescAr:"استراحة بالما هي وجهتك المثالية للراحة والاسترخاء بعيداً عن ضجيج المدينة. استمتع بأجواء الريف الهادئة، الهواء النقي، والمساحات الخضراء الواسعة التي تمنحك تجربة طبيعية أصيلة.",aboutDescEn:"Palma Resort is your perfect destination for rest and relaxation away from city noise. Enjoy peaceful rural vibes, fresh air, and wide green spaces that give you an authentic natural experience."},
+  contact:{phone:"0529295661",wa:"971529295661",igUrl:"",igUser:"",ttUrl:"",ttUser:""},
+  adminPw:"palma2024"
+};
+
+let D = JSON.parse(JSON.stringify(DEFAULT));
+let lang = 'ar';
+let footerClicks = 0, footerTimer = null;
+
+/* ─── FIREBASE ─── */
+const firebaseConfig = {
+  apiKey: "AIzaSyDgQoVnr_nAqjL6jE4FuhrVhltJEDApHk4",
+  authDomain: "palma-resort.firebaseapp.com",
+  projectId: "palma-resort",
+  storageBucket: "palma-resort.firebasestorage.app",
+  messagingSenderId: "209542676370",
+  appId: "1:209542676370:web:a1b67e4f020f189f2e0b4b",
+  measurementId: "G-G3PWM30BQ2"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const DOC_REF = db.collection('palma').doc('siteData');
+
+async function load(){
+  try {
+    const snap = await DOC_REF.get();
+    if(snap.exists){
+      const data = snap.data();
+      if(data.packages) D.packages = data.packages;
+      if(data.info)     D.info     = data.info;
+      if(data.contact)  D.contact  = data.contact;
+      if(data.adminPw)  D.adminPw  = data.adminPw;
+    } else {
+      // First run — seed Firestore with defaults
+      await DOC_REF.set(D);
+    }
+  } catch(e){
+    console.warn('Firebase load failed, using localStorage fallback:', e);
+    try {
+      const s = localStorage.getItem('palma_data');
+      if(s){ const p=JSON.parse(s); D.packages=p.packages||D.packages; D.info=p.info||D.info; D.contact=p.contact||D.contact; D.adminPw=p.adminPw||D.adminPw; }
+    } catch(le){}
+  }
+}
+
+async function save(){
+  try {
+    await DOC_REF.set(D);
+    localStorage.setItem('palma_data', JSON.stringify(D)); // backup
+  } catch(e){
+    console.warn('Firebase save failed, using localStorage fallback:', e);
+    try { localStorage.setItem('palma_data', JSON.stringify(D)); } catch(le){}
+  }
+}
+
+function applyLang(){
+  document.querySelectorAll('[data-ar]').forEach(el=>{
+    el.textContent=lang==='ar'?el.dataset.ar:el.dataset.en;
+  });
+  document.getElementById('lang-btn').textContent=lang==='ar'?'EN':'عربي';
+  document.documentElement.lang=lang;
+  document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+}
+function toggleLang(){lang=lang==='ar'?'en':'ar';applyLang();renderPackages();}
+
+function renderPackages(){
+  const grid=document.getElementById('pkgs-grid');
+  const waNum=D.contact.wa;
+  grid.innerHTML=D.packages.map(p=>{
+    const n=lang==='ar'?p.nameAr:p.nameEn;
+    const days=lang==='ar'?p.daysAr:p.daysEn;
+    const detail=lang==='ar'?p.detailAr:p.detailEn;
+    const bookText=lang==='ar'?'احجز الآن':'Book Now';
+    const waMsg=encodeURIComponent(lang==='ar'?`أهلاً، أريد الحجز: ${p.nameAr}`:`Hello, I'd like to book: ${p.nameEn}`);
+    return `<div class="pkg-card${p.featured?' featured':''} fade-up">
+      ${p.featured?`<div class="pkg-label">${lang==='ar'?'الأكثر طلباً':'Most Popular'}</div>`:''}
+      <div class="pkg-name-ar">${n}</div>
+      <div class="pkg-name-en">${lang==='ar'?p.nameEn:p.nameAr}</div>
+      <div class="pkg-days">${days}</div>
+      <div class="pkg-detail">${detail}</div>
+      <div class="pkg-footer">
+        <div class="pkg-price">
+          <span class="price-cur">AED</span>
+          <span class="price-num">${Number(p.price).toLocaleString()}</span>
+        </div>
+        <a class="btn-book" href="https://wa.me/${waNum}?text=${waMsg}" target="_blank">${bookText}</a>
+      </div>
+    </div>`;
+  }).join('');
+  observeFadeUp();
+}
+
+function applyContent(){
+  const i=D.info;
+  const el=id=>document.getElementById(id);
+  const ht=el('hero-tagline');
+  if(ht){ht.dataset.ar=i.heroAr;ht.dataset.en=i.heroEn;ht.textContent=lang==='ar'?i.heroAr:i.heroEn;}
+  const at=el('about-title');
+  if(at){at.dataset.ar=i.aboutTitleAr;at.dataset.en=i.aboutTitleEn;at.textContent=lang==='ar'?i.aboutTitleAr:i.aboutTitleEn;}
+  const ad=el('about-desc');
+  if(ad){ad.dataset.ar=i.aboutDescAr;ad.dataset.en=i.aboutDescEn;ad.textContent=lang==='ar'?i.aboutDescAr:i.aboutDescEn;}
+  const c=D.contact;
+  const pv=el('phone-val');if(pv)pv.textContent=c.phone;
+  const pc=el('phone-card');if(pc)pc.href='tel:+'+c.phone.replace(/^0/,'971');
+  const wv=el('wa-val');if(wv)wv.textContent=c.phone;
+  const wc=el('wa-card');if(wc)wc.href=`https://wa.me/${c.wa}?text=${encodeURIComponent('أهلاً، أود الاستفسار عن الحجز في استراحة بالما')}`;
+  const wf=el('wa-float');if(wf)wf.href=`https://wa.me/${c.wa}?text=${encodeURIComponent('أهلاً، أود الاستفسار عن الحجز')}`;
+  const igC=el('ig-card');const igV=el('ig-val');
+  if(igC){igC.style.display=c.igUrl?'flex':'none';igC.href=c.igUrl;if(igV)igV.textContent=c.igUser||'@palmaresort';}
+  const ttC=el('tt-card');const ttV=el('tt-val');
+  if(ttC){ttC.style.display=c.ttUrl?'flex':'none';ttC.href=c.ttUrl;if(ttV)ttV.textContent=c.ttUser||'@palmaresort';}
+}
+
+/* ─── NAV SCROLL ─── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
+});
+
+/* ─── FADE UP ─── */
+function observeFadeUp(){
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:0.12});
+  document.querySelectorAll('.fade-up:not(.in)').forEach(el=>obs.observe(el));
+}
+
+/* ─── FOOTER LOGO CLICK (3x to open admin) ─── */
+function footerClick(){
+  footerClicks++;
+  clearTimeout(footerTimer);
+  footerTimer=setTimeout(()=>footerClicks=0,2500);
+  if(footerClicks>=3){footerClicks=0;openAdmin();}
+}
+
+/* ─── KEYBOARD SHORTCUT: Ctrl+Shift+A ─── */
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey&&e.shiftKey&&(e.key==='A'||e.key==='a')){e.preventDefault();openAdmin();}
+});
+
+/* ─── ADMIN ─── */
+function openAdmin(){
+  document.getElementById('adm-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeAdmin(){
+  document.getElementById('adm-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('adm-overlay').addEventListener('click',function(e){if(e.target===this)closeAdmin();});
+
+function adminLogin(){
+  const pw=document.getElementById('pw-input').value;
+  const err=document.getElementById('pw-err');
+  if(pw===D.adminPw){
+    document.getElementById('adm-login-screen').style.display='none';
+    document.getElementById('adm-main').style.display='flex';
+    populateAdminFields();
+    document.getElementById('pw-input').value='';
+    err.style.display='none';
+  }else{
+    err.style.display='block';
+    document.getElementById('pw-input').select();
+  }
+}
+
+function showTab(id,btn){
+  document.querySelectorAll('.adm-tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.adm-pane').forEach(p=>p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('tab-'+id).classList.add('on');
+}
+
+function populateAdminFields(){
+  const g=id=>document.getElementById(id);
+  const i=D.info,c=D.contact;
+  if(g('inf-hero-ar'))g('inf-hero-ar').value=i.heroAr;
+  if(g('inf-hero-en'))g('inf-hero-en').value=i.heroEn;
+  if(g('inf-about-title-ar'))g('inf-about-title-ar').value=i.aboutTitleAr;
+  if(g('inf-about-title-en'))g('inf-about-title-en').value=i.aboutTitleEn;
+  if(g('inf-about-desc-ar'))g('inf-about-desc-ar').value=i.aboutDescAr;
+  if(g('inf-about-desc-en'))g('inf-about-desc-en').value=i.aboutDescEn;
+  if(g('c-phone'))g('c-phone').value=c.phone;
+  if(g('c-wa'))g('c-wa').value=c.wa;
+  if(g('c-ig'))g('c-ig').value=c.igUrl;
+  if(g('c-ig-user'))g('c-ig-user').value=c.igUser;
+  if(g('c-tt'))g('c-tt').value=c.ttUrl;
+  if(g('c-tt-user'))g('c-tt-user').value=c.ttUser;
+  buildPkgBlocks();
+}
+
+function buildPkgBlocks(){
+  const container=document.getElementById('pkg-admin-blocks');
+  container.innerHTML=D.packages.map((p,idx)=>`
+    <div class="pkg-blk">
+      <div class="pkg-blk-hdr" onclick="togglePkgBlk(${idx},this)">
+        <span>${idx+1}. ${p.nameAr}</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="pkg-blk-body" id="pkb-${idx}">
+        <div class="adm-field"><label class="adm-lbl">الاسم (عربي)</label><input class="adm-input" id="p${idx}-name-ar" value="${escH(p.nameAr)}"></div>
+        <div class="adm-field"><label class="adm-lbl">Name (English)</label><input class="adm-input" id="p${idx}-name-en" value="${escH(p.nameEn)}"></div>
+        <div class="adm-field"><label class="adm-lbl">الأيام (عربي)</label><input class="adm-input" id="p${idx}-days-ar" value="${escH(p.daysAr)}"></div>
+        <div class="adm-field"><label class="adm-lbl">Days (English)</label><input class="adm-input" id="p${idx}-days-en" value="${escH(p.daysEn)}"></div>
+        <div class="adm-field"><label class="adm-lbl">التفاصيل (عربي)</label><textarea class="adm-textarea adm-input" id="p${idx}-detail-ar" rows="2">${escH(p.detailAr)}</textarea></div>
+        <div class="adm-field"><label class="adm-lbl">Details (English)</label><textarea class="adm-textarea adm-input" id="p${idx}-detail-en" rows="2">${escH(p.detailEn)}</textarea></div>
+        <div class="adm-field"><label class="adm-lbl">السعر (AED)</label><input class="adm-input" id="p${idx}-price" type="number" value="${p.price}"></div>
+        <div class="adm-checkbox-row"><input type="checkbox" id="p${idx}-feat" ${p.featured?'checked':''}><label for="p${idx}-feat">الأكثر طلباً / Featured</label></div>
+      </div>
+    </div>
+  `).join('');
+}
+function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function togglePkgBlk(idx,hdr){
+  const body=document.getElementById('pkb-'+idx);
+  const isOpen=body.classList.toggle('open');
+  hdr.classList.toggle('open',isOpen);
+}
+
+async function savePackages(btn){
+  D.packages.forEach((p,idx)=>{
+    const g=id=>document.getElementById(id);
+    p.nameAr=g(`p${idx}-name-ar`).value;
+    p.nameEn=g(`p${idx}-name-en`).value;
+    p.daysAr=g(`p${idx}-days-ar`).value;
+    p.daysEn=g(`p${idx}-days-en`).value;
+    p.detailAr=g(`p${idx}-detail-ar`).value;
+    p.detailEn=g(`p${idx}-detail-en`).value;
+    p.price=Number(g(`p${idx}-price`).value)||0;
+    p.featured=g(`p${idx}-feat`).checked;
+  });
+  renderPackages();
+  await save();
+  flashBtn(btn);
+}
+
+async function saveInfo(btn){
+  const g=id=>document.getElementById(id);
+  D.info.heroAr=g('inf-hero-ar').value;
+  D.info.heroEn=g('inf-hero-en').value;
+  D.info.aboutTitleAr=g('inf-about-title-ar').value;
+  D.info.aboutTitleEn=g('inf-about-title-en').value;
+  D.info.aboutDescAr=g('inf-about-desc-ar').value;
+  D.info.aboutDescEn=g('inf-about-desc-en').value;
+  applyContent();applyLang();
+  await save();
+  flashBtn(btn);
+}
+
+async function saveContact(btn){
+  const g=id=>document.getElementById(id);
+  D.contact.phone=g('c-phone').value;
+  D.contact.wa=g('c-wa').value;
+  D.contact.igUrl=g('c-ig').value;
+  D.contact.igUser=g('c-ig-user').value;
+  D.contact.ttUrl=g('c-tt').value;
+  D.contact.ttUser=g('c-tt-user').value;
+  applyContent();
+  await save();
+  flashBtn(btn);
+}
+
+function saveAll(){
+  savePackages(document.getElementById('adm-save-all'));
+  saveInfo({textContent:'',dataset:{}});
+  saveContact({textContent:'',dataset:{}});
+}
+
+async function changePassword(btn){
+  const g=id=>document.getElementById(id);
+  const err=document.getElementById('pw-change-err');
+  const old=g('s-pw-old').value;
+  const nw=g('s-pw-new').value;
+  const cf=g('s-pw-confirm').value;
+  if(old!==D.adminPw){err.textContent=lang==='ar'?'كلمة المرور الحالية غير صحيحة':'Current password is incorrect';err.style.display='block';return;}
+  if(nw.length<4){err.textContent=lang==='ar'?'كلمة المرور الجديدة قصيرة جداً (4 أحرف على الأقل)':'New password too short (min 4 chars)';err.style.display='block';return;}
+  if(nw!==cf){err.textContent=lang==='ar'?'كلمتا المرور غير متطابقتين':'Passwords do not match';err.style.display='block';return;}
+  D.adminPw=nw;
+  g('s-pw-old').value='';g('s-pw-new').value='';g('s-pw-confirm').value='';
+  err.style.display='none';
+  await save();
+  flashBtn(btn);
+}
+
+async function resetData(){
+  const msg=lang==='ar'?'هل أنت متأكد من إعادة ضبط جميع البيانات؟':'Are you sure you want to reset all data?';
+  if(!confirm(msg))return;
+  localStorage.removeItem('palma_data');
+  D=JSON.parse(JSON.stringify(DEFAULT));
+  await save();
+  applyContent();applyLang();renderPackages();populateAdminFields();
+}
+
+function flashBtn(btn){
+  if(!btn||!btn.textContent)return;
+  const orig=btn.textContent;
+  btn.textContent=lang==='ar'?'✓ تم الحفظ':'✓ Saved';
+  btn.style.background='#2B8A3E';
+  setTimeout(()=>{btn.textContent=orig;btn.style.background='';},2200);
+}
+
+/* ─── INIT ─── */
+async function init(){
+  await load();
+  applyContent();
+  applyLang();
+  renderPackages();
+  observeFadeUp();
+}
+init();
+
+/* Also run observer on scroll */
+document.addEventListener('scroll',observeFadeUp,{passive:true});
+</script>
+</body>
+</html>
